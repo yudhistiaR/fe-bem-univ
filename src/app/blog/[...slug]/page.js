@@ -1,20 +1,22 @@
 "use client";
 
+import { cn, formatDate } from "@/lib/utils";
 import { TracingBeam } from "@/components/ui/TrackingBeam";
-import { twMerge } from "tailwind-merge";
-import Image from "next/image";
-import NewArticleSection from "@/components/section/NewArticleSection";
-import MainLayout from "@/components/layout/MainLayout";
 import { useFetchArticles } from "@/hooks/useFetchArticles";
 import { useParams } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
+
+import MainLayout from "@/components/layout/MainLayout";
+import Image from "next/image";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import NewArticleSection from "@/components/section/NewArticleSection";
+import SingleBlogSkeleton from "@/components/ui/SingleBlogSkeleton";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import SingleBlogSkeleton from "@/components/ui/SingleBlogSkeleton";
 
 // Fungsi untuk menangani URL gambar
 const getImageUrl = (url) => {
@@ -29,10 +31,9 @@ const getImageUrl = (url) => {
 const Slider = ({ files }) => {
   return (
     <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
+      modules={[Pagination, Autoplay]}
       spaceBetween={20}
       slidesPerView={1}
-      navigation
       pagination={{ clickable: true }}
       autoplay={{ delay: 3000, disableOnInteraction: false }}
       className="my-4 rounded-lg"
@@ -47,7 +48,7 @@ const Slider = ({ files }) => {
             className="rounded-lg object-cover w-full"
           />
           {file.caption && (
-            <p className="text-sm text-gray-400 mt-2 text-center">
+            <p className="text-md text-gray-400 mt-2 text-center">
               {file.caption}
             </p>
           )}
@@ -72,8 +73,8 @@ const SingleBlog = () => {
     switch (block.__component) {
       case "shared.rich-text":
         return (
-          <div className="prose prose-sm dark:prose-invert max-w-none">
-            <ReactMarkdown
+          <div className="prose prose-sm max-w-none text-lg md:text-xl">
+            <Markdown
               remarkPlugins={[remarkGfm]}
               components={{
                 img: ({ src, alt }) => (
@@ -88,7 +89,7 @@ const SingleBlog = () => {
               }}
             >
               {block.body}
-            </ReactMarkdown>
+            </Markdown>
           </div>
         );
 
@@ -138,17 +139,18 @@ const SingleBlog = () => {
               <div className="mb-10">
                 {/* Detail Kategori */}
                 {article.category && (
-                  <div className="mb-4">
+                  <div className="mb-4 flex justify-between items-center">
                     <h2 className="bg-black uppercase font-title text-white rounded-full text-sm w-fit px-4 py-1 inline-block">
                       {article.category.name}
                     </h2>
+                    <p>{formatDate(article.publishedAt)}</p>
                   </div>
                 )}
 
                 {/* Judul Artikel */}
                 <p
-                  className={twMerge(
-                    "text-xl font-title md:text-3xl font-bold mb-4",
+                  className={cn(
+                    "text-3xl font-title md:text-5xl font-bold mb-4",
                   )}
                 >
                   {article.title}
@@ -178,7 +180,7 @@ const SingleBlog = () => {
                 )}
 
                 {/* Konten Artikel (blocks) */}
-                <div className="text-sm prose prose-sm dark:prose-invert">
+                <div className="text-sm">
                   {/* Gambar Cover */}
                   {article.cover && (
                     <Image

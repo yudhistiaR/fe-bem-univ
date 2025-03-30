@@ -40,7 +40,7 @@ export const TracingBeam = ({ children, className }) => {
   return (
     <motion.div
       ref={ref}
-      className={cn("relative mx-auto z-50 w-full max-w-5xl", className)}
+      className={cn("relative mx-auto w-full max-w-5xl", className)}
     >
       {!isMobile && (
         <div className="absolute z-10 top-0 -left-0 md:-left-24">

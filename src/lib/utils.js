@@ -5,6 +5,24 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+export const formatDate = (isoString) => {
+  const date = new Date(isoString);
+
+  // Opsi untuk format tanggal
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  };
+
+  // Format tanggal menggunakan toLocaleString
+  return date.toLocaleString("id-ID", options);
+};
+
 /**
  * Menghitung estimasi waktu baca berdasarkan teks.
  * @param {string} text - Teks artikel yang akan dihitung waktu bacanya.

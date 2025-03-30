@@ -9,7 +9,7 @@ const NewArticleSection = ({ count }) => {
   const { data, isFetching, isPending } = useFetchArticles({ max: count });
 
   return (
-    <div className="base-color">
+    <div className="base-color relative">
       <MainLayout className="h-full text-white py-10">
         <h1 className="text-4xl mb-4 md:text-5xl font-title font-bold">
           BACAAN TERBARU
