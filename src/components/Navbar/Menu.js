@@ -71,19 +71,19 @@ export function NavbarMenu() {
                   {!isPending && !isFetching ? (
                     <Link
                       className="relative flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md overflow-hidden text-white"
-                      href={`/blog/${article.slug}/${article.documentId}`}
+                      href={`/blog/${article?.slug}/${article?.documentId}`}
                     >
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_API_URL}${article.cover.url}`}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}${article?.cover.url}`}
                         fill
                         alt="cover-blog"
                         className="object-cover z-20"
                       />
                       <div className="mb-2 mt-4 text-md font-medium z-50">
-                        {article.title}
+                        {article?.title}
                       </div>
                       <p className="text-sm leading-tight z-50">
-                        {article.description}
+                        {article?.description}
                       </p>
                     </Link>
                   ) : (

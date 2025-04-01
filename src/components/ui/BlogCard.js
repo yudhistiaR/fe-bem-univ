@@ -7,7 +7,7 @@ import Link from "next/link";
 export function BlogCard({ data }) {
   return (
     <>
-      {data.data.map((article, i) => (
+      {data?.data.map((article, i) => (
         <Link
           key={i}
           href={`/blog/${article.slug}/${article.documentId}`}
