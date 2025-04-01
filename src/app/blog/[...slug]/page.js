@@ -6,6 +6,7 @@ import { useFetchArticles } from "@/hooks/useFetchArticles";
 import { useParams } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import { DiscussionEmbed } from "disqus-react";
 
 import MainLayout from "@/components/layout/MainLayout";
 import Image from "next/image";
@@ -61,6 +62,12 @@ const Slider = ({ files }) => {
 const SingleBlog = () => {
   const param = useParams();
   const [slug, id] = param.slug;
+
+  const disqusConfig = {
+    identifier: id,
+    title: slug,
+    language: "id_ID", //e.g. for Traditional Chinese (Taiwan)
+  };
 
   const { data, isPending, isFetching } = useFetchArticles({
     max: 1,
@@ -202,6 +209,12 @@ const SingleBlog = () => {
                   )}
                 </div>
               </div>
+            </div>
+            <div className="my-40">
+              <DiscussionEmbed
+                shortname="bem-uniska-mab"
+                config={disqusConfig}
+              />
             </div>
           </TracingBeam>
         ) : (
